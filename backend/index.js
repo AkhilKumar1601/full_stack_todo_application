@@ -46,7 +46,7 @@ app.post("/signin", async (req, res) => {
       expiresIn: "1h",
     });
 
-    res.json({ token });
+    res.json({ message: "Signin successful", token });
   } else {
     res.json({ message: "Incorrect credentials" });
   }

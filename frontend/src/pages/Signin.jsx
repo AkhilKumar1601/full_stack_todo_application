@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-function Signin() {
+function Signin({ onSigninSuccess }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("handleSubmit triggered");
     try {
       const response = await axios.post("http://localhost:3000/signin", {
         email,
@@ -18,6 +19,7 @@ function Signin() {
         // save token in localStorage
         localStorage.setItem("token", response.data.token);
         setMessage("Signin successful");
+        onSigninSuccess();
       } else {
         setMessage(response.data.message || "Signin failed");
       }
@@ -30,7 +32,7 @@ function Signin() {
     <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 p-4">
       <div className="w-full max-w-md bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8">
         <h1 className="text-2xl font-semibold text-gray-900 dark:text-gray-100 mb-6 text-center">
-          Signup
+          Signin
         </h1>
 
         <form onSubmit={handleSubmit} className="space-y-4">
